@@ -23,15 +23,13 @@ public class OpeningScene : MonoBehaviour
     private const float MAX_BLUR_RADIUS = 1.5f; // Increase this for stronger blur intensity
 
     [Header("Stand Up After Blinking")]
-    public MonoBehaviour firstPersonController;   // 把你的 First Person Controller 脚本拖进来
-    public Transform cameraRig;                   // 建议拖 CameraRoot（或 Camera 的父物体）；没有就拖 Main Camera
+    public MonoBehaviour firstPersonController;
+    public Transform cameraRig; 
 
-    public float standUpDuration = 1.2f;          // 站起来用时
+    public float standUpDuration = 1.2f; 
     public Vector3 standUpFinalLocalPos = new Vector3(0f, 0.373f, 0f);
     public Vector3 standUpFinalLocalEuler = new Vector3(0f, 0f, 0f);
-    // 让“抬头”更有感觉（可选）
     public AnimationCurve standUpCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    // 是否在站起来期间禁用控制器
     public bool disableControllerDuringStandUp = true;
 
 
@@ -170,14 +168,13 @@ public class OpeningScene : MonoBehaviour
         Transform rig = cameraRig != null ? cameraRig : (Camera.main != null ? Camera.main.transform : null);
         if (rig == null) yield break;
 
-        // 记录起始姿态（用 local，比较稳定）
         Vector3 startPos = rig.localPosition;
         Quaternion startRot = rig.localRotation;
 
         Vector3 endPos = standUpFinalLocalPos;
         Quaternion endRot = Quaternion.Euler(standUpFinalLocalEuler);
 
-        // 暂时禁用第一人称控制器（防止它抢镜头）
+        // disable camera controller
         if (disableControllerDuringStandUp && firstPersonController != null)
             firstPersonController.enabled = false;
 
@@ -197,7 +194,7 @@ public class OpeningScene : MonoBehaviour
         rig.localPosition = endPos;
         rig.localRotation = endRot;
 
-        // 动画结束，交回控制器
+        // animation end, camera controller back
         if (disableControllerDuringStandUp && firstPersonController != null)
             firstPersonController.enabled = true;
     }
