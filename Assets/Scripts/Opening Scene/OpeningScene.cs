@@ -81,10 +81,9 @@ public class OpeningScene : MonoBehaviour
 
         yield return new WaitForSeconds(sleepDuration);
 
-        // ⭐ 关键修复：等一帧，确保 DialogueUI / Canvas / Awake 全部完成
+        // Make sure DialogueUI / Canvas / Awake all complete
         yield return null;
 
-        // ⭐ 在眨眼阶段启动内心独白（并行，不等待）
         if (dialogueUI != null && openingThoughts.Length > 0)
         {
             dialogueUI.StartDialogue(openingThoughts);
