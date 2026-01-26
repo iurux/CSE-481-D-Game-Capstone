@@ -6067,7 +6067,7 @@ GameObject:
   - component: {fileID: 592913096}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11458,6 +11458,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761d2d60527a242a3983d3fe671ba1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 1489167194}
+  - {fileID: 707760480}
+  - {fileID: 1228383830}
+  - {fileID: 1594688770}
+  - {fileID: 408704302}
+  - {fileID: 1720761728}
+  - {fileID: 1661806116}
+  - {fileID: 319347706}
+  emissiveRenderers: []
+  flickerCount: 4
+  flickerInterval: 0.15
+  dialogueUI: {fileID: 1665245401}
 --- !u!1001 &1318599275
 PrefabInstance:
   m_ObjectHideFlags: 0
