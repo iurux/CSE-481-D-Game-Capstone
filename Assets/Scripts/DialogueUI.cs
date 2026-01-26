@@ -22,13 +22,12 @@ public class DialogueUI : MonoBehaviour
 
     void Awake()
     {
-        // ⚠️ 脚本始终启用，只隐藏 UI
         panel.SetActive(false);
         continueHint.gameObject.SetActive(false);
     }
 
     /// <summary>
-    /// 外部唯一需要调用的方法
+    /// The only public method
     /// </summary>
     public void StartDialogue(string[] lines)
     {
@@ -42,9 +41,9 @@ public class DialogueUI : MonoBehaviour
     private IEnumerator PlayDialogue(string[] lines)
     {
         panel.SetActive(true);
-        yield return null; // 确保 UI 刷新
+        yield return null; // make sure UI refresh
 
-        // 保证文本可见
+        // make sure text visible
         Color tc = dialogueText.color;
         tc.a = 1f;
         dialogueText.color = tc;
