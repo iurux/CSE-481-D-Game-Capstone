@@ -49,16 +49,21 @@ public class DialogueUI : MonoBehaviour
         tc.a = 1f;
         dialogueText.color = tc;
 
-        foreach (string line in lines)
+        for (int i = 0; i < lines.Length; i++)
         {
-            dialogueText.text = line;
-
-            // 清掉本帧输入
+            dialogueText.text = lines[i];
             yield return null;
 
-            yield return WaitForAdvance();
+            // if last sentence, just terminated it
+            if (i < lines.Length - 1)
+                yield return WaitForAdvance();
+            else
+                yield return new WaitForSeconds(3.0f); // show last sentence
         }
 
+        // Initializing UI
+        dialogueText.text = "";
+        continueHint.gameObject.SetActive(false);
         panel.SetActive(false);
         dialogueRoutine = null;
     }
