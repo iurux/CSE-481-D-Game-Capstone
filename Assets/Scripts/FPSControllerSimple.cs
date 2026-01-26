@@ -21,6 +21,10 @@ public class FPSControllerSimple : MonoBehaviour
     [Header("Inventory UI")]
     public GameObject inventoryPanel;
 
+    [Header("Systems")]
+    public InventorySimple inventory;
+    public DialogueUI dialogueUI;
+
     float pitch;
     Vector3 vel;
     CharacterController cc;
@@ -32,6 +36,8 @@ public class FPSControllerSimple : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         interactPrompt.gameObject.SetActive(false);
         inventoryPanel.SetActive(false);
+
+        if (inventory == null) inventory = GetComponent<InventorySimple>();
     }
 
     void Update()
@@ -96,6 +102,9 @@ public class FPSControllerSimple : MonoBehaviour
                 ShowPrompt("F");
                 if (Keyboard.current.fKey.wasPressedThisFrame)
                 {
+                    string itemId = hit.collider.name; // ex: "Student Card"
+                    if (inventory != null) inventory.Add(itemId);
+
                     Debug.Log("Picked up: " + hit.collider.name);
                     Destroy(hit.collider.gameObject);
                 }
@@ -103,6 +112,19 @@ public class FPSControllerSimple : MonoBehaviour
             else if (hit.collider.CompareTag("Interact"))
             {
                 ShowPrompt("E");
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    DoorInteractable door = hit.collider.GetComponentInParent<DoorInteractable>();
+                    if (door != null)
+                    {
+                        door.TryInteract(inventory, dialogueUI);
+                    }
+                    else
+                    {
+                        // 如果不是门，你以后也可以扩展别的交互
+                        Debug.Log("Interacted with: " + hit.collider.name);
+                    }
+                }
             }
         }
     }
