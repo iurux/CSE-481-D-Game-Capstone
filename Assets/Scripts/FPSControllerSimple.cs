@@ -1,63 +1,129 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSControllerSimple : MonoBehaviour
 {
     public Transform cam;
+
+    [Header("Movement")]
     public float moveSpeed = 4.5f;
-    public float lookSensitivity = 0.12f; // 鼠标灵敏度
+    public float lookSensitivity = 0.12f;
     public float gravity = -20f;
+
+    [Header("Interaction")]
+    public float interactDistance = 3f;
+    public Image interactPrompt;
+    public TMP_Text keyText;
+
+    [Header("Inventory UI")]
+    public GameObject inventoryPanel;
 
     float pitch;
     Vector3 vel;
     CharacterController cc;
+    bool inventoryOpen;
 
     void Start()
     {
         cc = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        interactPrompt.gameObject.SetActive(false);
+        inventoryPanel.SetActive(false);
     }
 
     void Update()
     {
-        // --- Mouse Look (Input System) ---
-        Vector2 mouseDelta = Vector2.zero;
-        if (Mouse.current != null)
-            mouseDelta = Mouse.current.delta.ReadValue();
+        HandleInventoryToggle();
 
+        if (inventoryOpen) return; // 🔒 背包打开时，什么都不动
+
+        HandleLook();
+        HandleMove();
+        HandleGravity();
+        HandleInteractionRay();
+    }
+
+    // ================== Camera ==================
+    void HandleLook()
+    {
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
         float mx = mouseDelta.x * lookSensitivity;
         float my = mouseDelta.y * lookSensitivity;
 
         transform.Rotate(0, mx, 0);
         pitch = Mathf.Clamp(pitch - my, -80f, 80f);
         cam.localEulerAngles = new Vector3(pitch, 0, 0);
+    }
 
-        // --- WASD Move (Input System) ---
+    // ================== Movement ==================
+    void HandleMove()
+    {
         Vector2 move2 = Vector2.zero;
-        if (Keyboard.current != null)
-        {
-            if (Keyboard.current.wKey.isPressed) move2.y += 1;
-            if (Keyboard.current.sKey.isPressed) move2.y -= 1;
-            if (Keyboard.current.dKey.isPressed) move2.x += 1;
-            if (Keyboard.current.aKey.isPressed) move2.x -= 1;
-        }
-        move2 = Vector2.ClampMagnitude(move2, 1f);
+        if (Keyboard.current.wKey.isPressed) move2.y += 1;
+        if (Keyboard.current.sKey.isPressed) move2.y -= 1;
+        if (Keyboard.current.dKey.isPressed) move2.x += 1;
+        if (Keyboard.current.aKey.isPressed) move2.x -= 1;
 
+        move2 = Vector2.ClampMagnitude(move2, 1f);
         Vector3 move = transform.right * move2.x + transform.forward * move2.y;
         cc.Move(move * moveSpeed * Time.deltaTime);
+    }
 
-        // --- Gravity ---
+    void HandleGravity()
+    {
         if (cc.isGrounded && vel.y < 0) vel.y = -1f;
         vel.y += gravity * Time.deltaTime;
         cc.Move(vel * Time.deltaTime);
+    }
 
-        // --- Cursor toggle ---
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+    // ================== Interaction ==================
+    void HandleInteractionRay()
+    {
+        interactPrompt.gameObject.SetActive(false);
+
+        Vector3 rayOrigin = cam.position + cam.forward * 0.2f;
+        Ray ray = new Ray(rayOrigin, cam.forward);
+
+        Debug.DrawRay(rayOrigin, cam.forward * interactDistance, Color.red);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
         {
-            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked
-                ? CursorLockMode.None
-                : CursorLockMode.Locked;
+            if (hit.collider.CompareTag("Pickup"))
+            {
+                ShowPrompt("F");
+                if (Keyboard.current.fKey.wasPressedThisFrame)
+                {
+                    Debug.Log("Picked up: " + hit.collider.name);
+                    Destroy(hit.collider.gameObject);
+                }
+            }
+            else if (hit.collider.CompareTag("Interact"))
+            {
+                ShowPrompt("E");
+            }
+        }
+    }
+
+    void ShowPrompt(string key)
+    {
+        interactPrompt.gameObject.SetActive(true);
+        keyText.text = key;
+    }
+
+    // ================== Inventory ==================
+    void HandleInventoryToggle()
+    {
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            inventoryOpen = !inventoryOpen;
+            inventoryPanel.SetActive(inventoryOpen);
+
+            Time.timeScale = inventoryOpen ? 0f : 1f;
+            Cursor.lockState = inventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = inventoryOpen;
         }
     }
 }
