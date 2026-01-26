@@ -7647,6 +7647,7 @@ GameObject:
   - component: {fileID: 866672500}
   - component: {fileID: 866672499}
   - component: {fileID: 866672498}
+  - component: {fileID: 866672502}
   m_Layer: 0
   m_Name: Student Card
   m_TagString: Pickup
@@ -7743,6 +7744,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1925311357}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &866672502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866672497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bbba9dbadcea13439e34921f35b116c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1111111111111111111111111
+  icon: {fileID: 21300000, guid: 979e03b6c6751ca4196b0dddf873f604, type: 3}
 --- !u!1001 &873301238
 PrefabInstance:
   m_ObjectHideFlags: 0
