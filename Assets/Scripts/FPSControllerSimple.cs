@@ -102,10 +102,18 @@ public class FPSControllerSimple : MonoBehaviour
                 ShowPrompt("F");
                 if (Keyboard.current.fKey.wasPressedThisFrame)
                 {
-                    string itemId = hit.collider.name; // ex: "Student Card"
-                    if (inventory != null) inventory.Add(itemId);
+                    PickupItem p = hit.collider.GetComponentInParent<PickupItem>();
+                    Debug.Log($"[PICKUP] Hit: {hit.collider.name} | root: {hit.collider.transform.root.name} | PickupItem found: {p != null} | icon null: {(p == null ? "n/a" : (p.icon == null).ToString())}");
+                    string itemId = p != null && !string.IsNullOrEmpty(p.itemId)
+                        ? p.itemId
+                        : hit.collider.name;
 
-                    Debug.Log("Picked up: " + hit.collider.name);
+                    Sprite icon = p != null ? p.icon : null;
+
+                    if (inventory != null)
+                        inventory.Add(itemId, icon);
+
+                    Debug.Log("Picked up: " + itemId);
                     Destroy(hit.collider.gameObject);
                 }
             }
@@ -121,7 +129,7 @@ public class FPSControllerSimple : MonoBehaviour
                     }
                     else
                     {
-                        // 如果不是门，你以后也可以扩展别的交互
+                        // if not door, add other interaction
                         Debug.Log("Interacted with: " + hit.collider.name);
                     }
                 }

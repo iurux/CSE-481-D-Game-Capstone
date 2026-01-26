@@ -4,8 +4,8 @@ using UnityEngine;
 public class DoorInteractable : MonoBehaviour
 {
     [Header("Door Rotation")]
-    public Transform doorToRotate;        // 通常拖门本体（沿Y轴开合）
-    public float openAngleY = 90f;        // 开门角度（正负都行）
+    public Transform doorToRotate;        
+    public float openAngleY = 90f; 
     public float openSpeed = 2f;
 
     [Header("Requirement Type 1: Requires Item")]

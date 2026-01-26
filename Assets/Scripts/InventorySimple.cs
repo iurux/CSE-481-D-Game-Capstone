@@ -3,19 +3,30 @@ using UnityEngine;
 
 public class InventorySimple : MonoBehaviour
 {
-    // use item ID to save：ex "student card"
+    public InventoryUI ui; // 不拖也行，会自动找
+
     private HashSet<string> items = new HashSet<string>();
+
+    private void Start()
+    {
+    }
 
     public bool Has(string itemId)
     {
-        if (string.IsNullOrEmpty(itemId)) return false;
-        return items.Contains(itemId.ToLower().Trim());
+        return !string.IsNullOrEmpty(itemId) && items.Contains(itemId);
     }
 
-    public void Add(string itemId)
+    public void Add(string itemId, Sprite icon = null)
     {
         if (string.IsNullOrEmpty(itemId)) return;
-        items.Add(itemId.ToLower().Trim());
-        Debug.Log("[Inventory] Added: " + itemId);
+
+        // 已有就不重复加
+        if (!items.Add(itemId)) return;
+
+        if (ui != null)
+            ui.AddItem(itemId, icon);
+
+        Debug.Log("[Inventory] Add: " + itemId);
+
     }
 }
