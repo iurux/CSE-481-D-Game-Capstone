@@ -9,7 +9,7 @@ public class MazeGame : MonoBehaviour
     public GameObject mazeCanvas;
 
     [Header("Result")]
-    public GameObject studentCard;   // 解锁物品（可选）
+    public GameObject studentCard;
 
     // ===== Maze settings =====
     const int TILE = 16;
@@ -20,7 +20,7 @@ public class MazeGame : MonoBehaviour
 
     // ===== Player state =====
     Vector2Int player = new Vector2Int(1, 1);
-    int rule = 1; // 1 / 2 / 3
+    int rule = 1;
     bool solved = false;
 
     // ===== Level 1 map =====
@@ -53,7 +53,6 @@ public class MazeGame : MonoBehaviour
         tex = new Texture2D(COLS * TILE, ROWS * TILE);
         tex.filterMode = FilterMode.Point;
         mazeImage.texture = tex;
-
         Draw();
     }
 
@@ -61,9 +60,15 @@ public class MazeGame : MonoBehaviour
     {
         if (solved) return;
 
+        // ===== Exit maze =====
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            ExitMaze();
+            return;
+        }
+
         bool ruleChanged = false;
 
-        // ===== Switch rule =====
         if (Keyboard.current.digit1Key.wasPressedThisFrame) { rule = 1; ruleChanged = true; }
         if (Keyboard.current.digit2Key.wasPressedThisFrame) { rule = 2; ruleChanged = true; }
         if (Keyboard.current.digit3Key.wasPressedThisFrame) { rule = 3; ruleChanged = true; }
@@ -87,12 +92,22 @@ public class MazeGame : MonoBehaviour
         }
     }
 
+    void ExitMaze()
+    {
+        Debug.Log("Exit maze (not solved)");
+
+        mazeCanvas.SetActive(false);
+        Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     void TryMove(int dx, int dy)
     {
         int nx = player.x + dx;
         int ny = player.y + dy;
 
-        // ===== Boundary check =====
         if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS)
             return;
 
@@ -134,16 +149,10 @@ public class MazeGame : MonoBehaviour
     void Draw()
     {
         for (int y = 0; y < ROWS; y++)
-        {
             for (int x = 0; x < COLS; x++)
-            {
                 DrawTile(x, ROWS - 1 - y, GetTileColor(map[y, x]));
-            }
-        }
 
-        // draw player
         DrawRect(player.x, ROWS - 1 - player.y, ColorForPlayer());
-
         tex.Apply();
     }
 
