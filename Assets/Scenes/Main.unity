@@ -5981,9 +5981,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenRenderer: {fileID: 498074151}
-  flickerSpeed: 0.08
-  minIntensity: 0.3
-  maxIntensity: 1.2
+  normalMin: 0.3
+  normalMax: 0.6
+  normalSpeed: 0.08
+  alertMin: 0.8
+  alertMax: 1.6
+  alertSpeed: 0.04
 --- !u!114 &498074154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6011,7 +6014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9927573
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6019,7 +6022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.12013691
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalRotation.z
@@ -6027,7 +6030,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -13.8
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6276409764197313900, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6076,8 +6079,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6666987377989223924, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 503198089}
   m_SourcePrefab: {fileID: 100100000, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+--- !u!4 &503198087 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+  m_PrefabInstance: {fileID: 503198086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &503198088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6666987377989223924, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+  m_PrefabInstance: {fileID: 503198086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &503198089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503198088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652dc80a6ca20fa459c8ffe0144cb24d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorToRotate: {fileID: 503198087}
+  openAngleY: 90
+  openSpeed: 2
+  requirement: 2
+  requiredItemId: 
+  failDialogue: 
+  mazeLockedDialogue:
+  - I don't have access.
+  - I need to grant access to my student ID first.
+  - I think I can use the computer over there.
+  computerScreen: {fileID: 498074152}
 --- !u!4 &508981788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6607067672067829289, guid: eba40b33cd75dfc4e86e9604170d19f9, type: 3}
@@ -8626,9 +8665,14 @@ MonoBehaviour:
   doorToRotate: {fileID: 765066714}
   openAngleY: 90
   openSpeed: 2
-  requiresItem: 1
+  requirement: 1
   requiredItemId: Student Card
   failDialogue: I forget to pickup my student card
+  mazeLockedDialogue:
+  - I don't have access.
+  - I need to grant access to my student ID first.
+  - I think I can use the computer over there.
+  computerScreen: {fileID: 0}
 --- !u!1001 &766989400
 PrefabInstance:
   m_ObjectHideFlags: 0

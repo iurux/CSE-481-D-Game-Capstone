@@ -114,6 +114,8 @@ public class MazeGame : MonoBehaviour
 
         Debug.Log("Maze solved!");
 
+        MazeProgress.mazeSolved = true;
+
         mazeCanvas.SetActive(false);
         Time.timeScale = 1f;
 
@@ -122,6 +124,10 @@ public class MazeGame : MonoBehaviour
 
         if (studentCard != null)
             studentCard.SetActive(true);
+
+        ScreenFlicker flicker = FindObjectOfType<ScreenFlicker>();
+        if (flicker != null)
+            flicker.StopFlicker();
     }
 
     // ===== Drawing =====

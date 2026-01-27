@@ -4,22 +4,43 @@ using UnityEngine;
 public class DoorInteractable : MonoBehaviour
 {
     [Header("Door Rotation")]
-    public Transform doorToRotate;        
-    public float openAngleY = 90f; 
+    public Transform doorToRotate;
+    public float openAngleY = 90f;
     public float openSpeed = 2f;
 
-    [Header("Requirement Type 1: Requires Item")]
-    public bool requiresItem = true;
+    public enum RequirementType
+    {
+        None,
+        RequiresItem,
+        RequiresMazeSolved
+    }
+
+    [Header("Requirement")]
+    public RequirementType requirement = RequirementType.None;
+
+    // === Item Requirement ===
     public string requiredItemId = "student card";
     public string failDialogue = "i forget to pickup my student card";
 
-    private bool isOpen = false;
-    private bool isAnimating = false;
+    // === Maze Requirement ===
+    [TextArea]
+    public string[] mazeLockedDialogue =
+    {
+        "I don't have access.",
+        "I need to grant access to my student ID first.",
+        "I think I can use the computer over there."
+    };
 
-    private Quaternion closedRot;
-    private Quaternion openRot;
+    [Header("Hint Target")]
+    public ScreenFlicker computerScreen;   // 👈 新增
 
-    private void Awake()
+    bool isOpen = false;
+    bool isAnimating = false;
+
+    Quaternion closedRot;
+    Quaternion openRot;
+
+    void Awake()
     {
         if (doorToRotate == null) doorToRotate = transform;
         closedRot = doorToRotate.localRotation;
@@ -30,23 +51,31 @@ public class DoorInteractable : MonoBehaviour
     {
         if (isAnimating) return;
 
-        // 检查限制：需要 student card
-        if (requiresItem)
+        // ===== 条件检查 =====
+        if (requirement == RequirementType.RequiresItem)
         {
             if (inv == null || !inv.Has(requiredItemId))
             {
-                if (dialogueUI != null)
-                    dialogueUI.StartDialogue(new string[] { failDialogue });
+                dialogueUI?.StartDialogue(new string[] { failDialogue });
                 return;
             }
         }
 
-        // 通过限制：开门/关门（你只想开门就只保留 OpenDoor 也行）
-        if (!isOpen) StartCoroutine(AnimateDoor(openRot));
-        else StartCoroutine(AnimateDoor(closedRot));
+        if (requirement == RequirementType.RequiresMazeSolved)
+        {
+            if (!MazeProgress.mazeSolved)
+            {
+                dialogueUI?.StartDialogue(mazeLockedDialogue);
+                computerScreen?.Intensify();   // ✅ 这里改了
+                return;
+            }
+        }
+
+        // ===== 条件通过，开门 =====
+        StartCoroutine(AnimateDoor(openRot));
     }
 
-    private IEnumerator AnimateDoor(Quaternion target)
+    IEnumerator AnimateDoor(Quaternion target)
     {
         isAnimating = true;
 
@@ -61,7 +90,7 @@ public class DoorInteractable : MonoBehaviour
         }
 
         doorToRotate.localRotation = target;
-        isOpen = (target == openRot);
+        isOpen = true;
         isAnimating = false;
     }
 }
