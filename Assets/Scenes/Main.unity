@@ -13084,6 +13084,7 @@ GameObject:
   - component: {fileID: 1331489797}
   - component: {fileID: 1331489799}
   - component: {fileID: 1331489798}
+  - component: {fileID: 1331489800}
   m_Layer: 5
   m_Name: MazePanel
   m_TagString: Untagged
@@ -13149,6 +13150,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331489796}
   m_CullTransparentMesh: 1
+--- !u!114 &1331489800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331489796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32ab8462a022431bb98e0fec2c139f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mazeImage: {fileID: 1341983279}
+  mazeCanvas: {fileID: 122113817}
+  studentCard: {fileID: 866672497}
 --- !u!1001 &1333224659
 PrefabInstance:
   m_ObjectHideFlags: 0
