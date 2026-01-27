@@ -37,14 +37,15 @@ public class FPSControllerSimple : MonoBehaviour
         interactPrompt.gameObject.SetActive(false);
         inventoryPanel.SetActive(false);
 
-        if (inventory == null) inventory = GetComponent<InventorySimple>();
+        if (inventory == null)
+            inventory = GetComponent<InventorySimple>();
     }
 
     void Update()
     {
         HandleInventoryToggle();
 
-        if (inventoryOpen) return; // 🔒 背包打开时，什么都不动
+        if (inventoryOpen) return;
 
         HandleLook();
         HandleMove();
@@ -95,44 +96,62 @@ public class FPSControllerSimple : MonoBehaviour
 
         Debug.DrawRay(rayOrigin, cam.forward * interactDistance, Color.red);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
+        if (!Physics.Raycast(ray, out RaycastHit hit, interactDistance))
+            return;
+
+        // ---------- Pickup ----------
+        if (hit.collider.CompareTag("Pickup"))
         {
-            if (hit.collider.CompareTag("Pickup"))
+            ShowPrompt("F");
+
+            if (Keyboard.current.fKey.wasPressedThisFrame)
             {
-                ShowPrompt("F");
-                if (Keyboard.current.fKey.wasPressedThisFrame)
-                {
-                    PickupItem p = hit.collider.GetComponentInParent<PickupItem>();
-                    Debug.Log($"[PICKUP] Hit: {hit.collider.name} | root: {hit.collider.transform.root.name} | PickupItem found: {p != null} | icon null: {(p == null ? "n/a" : (p.icon == null).ToString())}");
-                    string itemId = p != null && !string.IsNullOrEmpty(p.itemId)
-                        ? p.itemId
-                        : hit.collider.name;
+                PickupItem p = hit.collider.GetComponentInParent<PickupItem>();
 
-                    Sprite icon = p != null ? p.icon : null;
+                string itemId = (p != null && !string.IsNullOrEmpty(p.itemId))
+                    ? p.itemId
+                    : hit.collider.name;
 
-                    if (inventory != null)
-                        inventory.Add(itemId, icon);
+                Sprite icon = p != null ? p.icon : null;
 
-                    Debug.Log("Picked up: " + itemId);
-                    Destroy(hit.collider.gameObject);
-                }
+                if (inventory != null)
+                    inventory.Add(itemId, icon);
+
+                Debug.Log("Picked up: " + itemId);
+                Destroy(hit.collider.gameObject);
             }
-            else if (hit.collider.CompareTag("Interact"))
+        }
+        // ---------- Interact ----------
+        else if (hit.collider.CompareTag("Interact"))
+        {
+            ShowPrompt("E");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                ShowPrompt("E");
-                if (Keyboard.current.eKey.wasPressedThisFrame)
+                Debug.Log("Interacted with: " + hit.collider.name);
+
+                // ① Door
+                DoorInteractable door =
+                    hit.collider.GetComponentInParent<DoorInteractable>();
+                if (door != null)
                 {
-                    DoorInteractable door = hit.collider.GetComponentInParent<DoorInteractable>();
-                    if (door != null)
-                    {
-                        door.TryInteract(inventory, dialogueUI);
-                    }
-                    else
-                    {
-                        // if not door, add other interaction
-                        Debug.Log("Interacted with: " + hit.collider.name);
-                    }
+                    door.TryInteract(inventory, dialogueUI);
+                    return;
                 }
+
+                // ② Computer (Maze)
+                ComputerInteract computer =
+                    hit.collider.GetComponent<ComputerInteract>() ??
+                    hit.collider.GetComponentInParent<ComputerInteract>();
+
+                if (computer != null)
+                {
+                    computer.Interact();
+                    return;
+                }
+
+                // ③ Fallback
+                Debug.Log("No interactable script found on object.");
             }
         }
     }
@@ -152,7 +171,9 @@ public class FPSControllerSimple : MonoBehaviour
             inventoryPanel.SetActive(inventoryOpen);
 
             Time.timeScale = inventoryOpen ? 0f : 1f;
-            Cursor.lockState = inventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.lockState = inventoryOpen
+                ? CursorLockMode.None
+                : CursorLockMode.Locked;
             Cursor.visible = inventoryOpen;
         }
     }

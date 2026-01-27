@@ -1,41 +1,36 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ComputerInteract : MonoBehaviour
 {
+    [Header("UI")]
     public GameObject mazeCanvas;
-    bool playerInside;
 
-    void Update()
+    /// <summary>
+    /// Called by FPSControllerSimple when player presses E on this object
+    /// </summary>
+    public void Interact()
     {
-        if (!playerInside) return;
-
-        if (Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            OpenComputer();
-        }
+        OpenComputer();
     }
 
     void OpenComputer()
     {
-        mazeCanvas.SetActive(true);
+        Debug.Log("OpenComputer called");
+
+        if (mazeCanvas != null)
+        {
+            mazeCanvas.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("MazeCanvas reference is missing!");
+        }
+
+        // Pause game world (optional)
         Time.timeScale = 0f;
 
+        // Unlock mouse for UI interaction
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player")) {
-            playerInside = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            playerInside = false;
     }
 }
