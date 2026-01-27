@@ -1788,7 +1788,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!1001 &160399179
 PrefabInstance:
@@ -2068,8 +2068,8 @@ MonoBehaviour:
   dialogueUI: {fileID: 1665245401}
   globalVolume: {fileID: 2126046114}
   sleepDuration: 2
-  blinkCount: 2
-  blinkSpeed: 3
+  blinkCount: 3
+  blinkSpeed: 2.5
   firstPersonController: {fileID: 592913094}
   cameraRig: {fileID: 132895687}
   standUpDuration: 1.2
@@ -15765,7 +15765,7 @@ GameObject:
   - component: {fileID: 1606380365}
   - component: {fileID: 1606380364}
   m_Layer: 0
-  m_Name: electricity_box
+  m_Name: ElectricityBox
   m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16529,7 +16529,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &1665245405
 RectTransform:
@@ -19714,7 +19714,7 @@ GameObject:
   - component: {fileID: 2058867182}
   - component: {fileID: 2058867181}
   m_Layer: 0
-  m_Name: electricity_sign
+  m_Name: ElectricityBox_sign
   m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

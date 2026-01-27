@@ -40,6 +40,16 @@ public class FPSControllerSimple : MonoBehaviour
 
         if (inventory == null)
             inventory = GetComponent<InventorySimple>();
+
+        if (circuitPuzzle == null)
+        {
+            circuitPuzzle = FindObjectOfType<CircuitPuzzleManager>();
+        }
+
+        if (circuitPuzzle != null && circuitPuzzle.puzzleCanvasPanel != null)
+        {
+            circuitPuzzle.puzzleCanvasPanel.SetActive(false);
+        }
     }
 
     void Update()

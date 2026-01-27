@@ -84,7 +84,7 @@ public class CircuitPuzzleManager : MonoBehaviour
 
     private IEnumerator WinSequence()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0f);
         
         if (powerSystem != null) 
         {
