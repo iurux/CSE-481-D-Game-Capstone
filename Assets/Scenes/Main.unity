@@ -1687,6 +1687,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
+--- !u!4 &156533978 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3648728342768473736, guid: a5ac041b79f79364ca8481b503332787, type: 3}
+  m_PrefabInstance: {fileID: 498074149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &158950713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,8 +2229,8 @@ Transform:
   m_GameObject: {fileID: 191045370}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 64.3953, y: 4.7584867, z: 4.315537}
-  m_LocalScale: {x: 0.10000001, y: 8.21, z: 6.486418}
+  m_LocalPosition: {x: 64.39232, y: 4.7584867, z: 4.315537}
+  m_LocalScale: {x: 0.10000001, y: 8.21, z: 6.492386}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 257923573}
@@ -5913,7 +5918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397794668357964319, guid: a5ac041b79f79364ca8481b503332787, type: 3}
       propertyPath: m_Name
-      value: (Prb)PC (2)
+      value: PC
       objectReference: {fileID: 0}
     - target: {fileID: 4747647773210725496, guid: a5ac041b79f79364ca8481b503332787, type: 3}
       propertyPath: m_Size.x
@@ -5926,6 +5931,10 @@ PrefabInstance:
     - target: {fileID: 4747647773210725496, guid: a5ac041b79f79364ca8481b503332787, type: 3}
       propertyPath: m_Size.z
       value: 0.8053054
+      objectReference: {fileID: 0}
+    - target: {fileID: 4747647773210725496, guid: a5ac041b79f79364ca8481b503332787, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4747647773210725496, guid: a5ac041b79f79364ca8481b503332787, type: 3}
       propertyPath: m_Center.x
@@ -5949,7 +5958,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3648728342768473736, guid: a5ac041b79f79364ca8481b503332787, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1591824009}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5239277993684838431, guid: a5ac041b79f79364ca8481b503332787, type: 3}
       insertIndex: -1
@@ -5975,12 +5987,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498074150}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac799a61658944deb5e82e037941749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenRenderer: {fileID: 498074151}
+  emissionColor: {r: 0.2, g: 0.6, b: 1, a: 1}
   normalMin: 0.3
   normalMax: 0.6
   normalSpeed: 0.08
@@ -5994,7 +6007,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498074150}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 585b008e7d8734af594419eb9d8d8fe7, type: 3}
   m_Name: 
@@ -6120,11 +6133,8 @@ MonoBehaviour:
   requirement: 2
   requiredItemId: 
   failDialogue: 
-  mazeLockedDialogue:
-  - I don't have access.
-  - I need to grant access to my student ID first.
-  - I think I can use the computer over there.
-  computerScreen: {fileID: 498074152}
+  cardReader: {fileID: 1913147970}
+  needSwipeDialogue: I need to use the card reader first.
 --- !u!4 &508981788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6607067672067829289, guid: eba40b33cd75dfc4e86e9604170d19f9, type: 3}
@@ -6826,7 +6836,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 44.900024, y: -36.69995}
+  m_AnchoredPosition: {x: 44.899902, y: -36.69995}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565323593
@@ -8824,11 +8834,8 @@ MonoBehaviour:
   requirement: 1
   requiredItemId: Student Card
   failDialogue: I forget to pickup my student card
-  mazeLockedDialogue:
-  - I don't have access.
-  - I need to grant access to my student ID first.
-  - I think I can use the computer over there.
-  computerScreen: {fileID: 0}
+  cardReader: {fileID: 0}
+  needSwipeDialogue: I need to use the card reader first.
 --- !u!1001 &766989400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10293,6 +10300,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2624671227268106405, guid: a5ac041b79f79364ca8481b503332787, type: 3}
   m_PrefabInstance: {fileID: 2049572407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &995759925 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7793069743201563450, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
+  m_PrefabInstance: {fileID: 1913147966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &997745746
 GameObject:
   m_ObjectHideFlags: 0
@@ -10518,8 +10530,8 @@ Transform:
   m_GameObject: {fileID: 1021734120}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 43.8729, y: 4.7584867, z: 4.315537}
-  m_LocalScale: {x: 0.10000001, y: 8.21, z: 31.717903}
+  m_LocalPosition: {x: 43.8763, y: 4.7584867, z: 4.315537}
+  m_LocalScale: {x: 0.10000001, y: 8.21, z: 31.724247}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 257923573}
@@ -13742,6 +13754,7 @@ MonoBehaviour:
   mazeImage: {fileID: 1341983279}
   mazeCanvas: {fileID: 122113817}
   studentCard: {fileID: 866672497}
+  screenFlicker: {fileID: 1591824008}
 --- !u!1001 &1333224659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15174,7 +15187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 51.890125
+      value: 51.999
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15182,11 +15195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.74
+      value: -5.246
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.025522875
+      value: 0.3687417
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalRotation.x
@@ -15194,7 +15207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9996743
+      value: -0.92953193
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalRotation.z
@@ -15206,7 +15219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -182.925
+      value: -136.724
       objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -15884,6 +15897,172 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2015934406930253867, guid: 458271fb06e38ef4abfe60d080c61a94, type: 3}
   m_PrefabInstance: {fileID: 891453933}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1591824008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1591824009}
+  - component: {fileID: 1591824015}
+  - component: {fileID: 1591824014}
+  - component: {fileID: 1591824013}
+  - component: {fileID: 1591824012}
+  - component: {fileID: 1591824011}
+  - component: {fileID: 1591824010}
+  m_Layer: 0
+  m_Name: ScreenFlicker
+  m_TagString: Interact
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1591824009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.04612732, y: 0.33224106, z: -0.015648842}
+  m_LocalScale: {x: 0.75625646, y: 0.44431454, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 156533978}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &1591824010
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1.0000001, z: 6.123235e-17}
+  m_Center: {x: 0.0000009536743, y: -0.00000071525574, z: 0.0000009536743}
+--- !u!114 &1591824011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585b008e7d8734af594419eb9d8d8fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mazeCanvas: {fileID: 122113817}
+--- !u!114 &1591824012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac799a61658944deb5e82e037941749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenRenderer: {fileID: 1591824014}
+  emissionColor: {r: 0.3160377, g: 0.6580188, b: 1, a: 1}
+  normalMin: 0.3
+  normalMax: 0.6
+  normalSpeed: 0.08
+  alertMin: 0.8
+  alertMax: 1.6
+  alertSpeed: 0.04
+--- !u!64 &1591824013
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1591824014
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cbabafb5e5e2a7f49b8aa7246e929054, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1591824015
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591824008}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1593929864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17479,14 +17658,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721616306}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.058953, y: 2.6640244, z: 6.9}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 31.804504, y: 14.561807, z: 2.055859}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1606380363}
   - {fileID: 2058867180}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1820710667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1723914418
 PrefabInstance:
@@ -18246,6 +18425,7 @@ MonoBehaviour:
   puzzleCanvasPanel: {fileID: 38726911}
   closeButton: {fileID: 0}
   powerSystem: {fileID: 1644170834}
+  screenFlicker: {fileID: 1591824008}
 --- !u!4 &1812012333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
@@ -18280,6 +18460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1721616307}
   - {fileID: 1765074984}
   - {fileID: 965893021}
   - {fileID: 257923573}
@@ -18564,6 +18745,18 @@ PrefabInstance:
     - target: {fileID: 2537803991167266457, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0291002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0169
       objectReference: {fileID: 0}
     - target: {fileID: 3067518982685379600, guid: fd9a0b6c96158cf4291ea793dcd09c5e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19373,16 +19566,72 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate Access Machine
       objectReference: {fileID: 0}
+    - target: {fileID: 7793069743201563450, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7793069743201563450, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1913147970}
+    - targetCorrespondingSourceObject: {fileID: 7793069743201563450, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1913147971}
   m_SourcePrefab: {fileID: 100100000, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
 --- !u!4 &1913147967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7793069743201070874, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
   m_PrefabInstance: {fileID: 1913147966}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1913147970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995759925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d434ead7952d8459bd7e24ec128469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accessGranted: 0
+  circuitPuzzle: {fileID: 1809996157}
+  powerOffDialogue:
+  - There is no power
+  - I need to turn on the power first.
+  mazeLockedDialogue:
+  - I don't have access.
+  - I need to grant access to my student ID first.
+  - I think I can use the computer over there.
+  grantAccessDialogue:
+  - Access granted.
+  alreadyGrantedDialogue:
+  - Access is already granted.
+--- !u!65 &1913147971
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995759925}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024224859, y: 0.46085927, z: 0.40071037}
+  m_Center: {x: 0.0000038146973, y: 0.0000003874302, z: -0.0000007674096}
 --- !u!4 &1914465820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4495713143320702143, guid: cffe7cb1f1e958f4bb79310e7b1d96e5, type: 3}
@@ -21061,7 +21310,6 @@ SceneRoots:
   - {fileID: 1689442906}
   - {fileID: 1665245405}
   - {fileID: 1318377587}
-  - {fileID: 1721616307}
   - {fileID: 122113821}
   - {fileID: 1808022467}
   - {fileID: 1644170835}

@@ -1,8 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScreenFlicker : MonoBehaviour
 {
-    public Renderer screenRenderer;
+    public Renderer screenRenderer;   // 拖 Quad 的 Renderer
+
+    [Header("Emission Color")]
+    public Color emissionColor = new Color(0.2f, 0.6f, 1f, 1f); // 蓝光
 
     [Header("Normal Flicker")]
     public float normalMin = 0.3f;
@@ -20,41 +23,37 @@ public class ScreenFlicker : MonoBehaviour
 
     void Start()
     {
+        if (screenRenderer == null)
+        {
+            Debug.LogError("ScreenFlicker: screenRenderer is null");
+            enabledFlicker = false;
+            return;
+        }
+
+        // 用实例材质，避免改到全局共享材质
         mat = screenRenderer.material;
         mat.EnableKeyword("_EMISSION");
     }
 
     void Update()
     {
-        if (!enabledFlicker) return;
+        if (!enabledFlicker || mat == null) return;
 
         float min = alertMode ? alertMin : normalMin;
         float max = alertMode ? alertMax : normalMax;
         float speed = alertMode ? alertSpeed : normalSpeed;
 
-        float intensity = Mathf.Lerp(
-            min,
-            max,
-            Mathf.PingPong(Time.time / speed, 1f)
-        );
+        float intensity = Mathf.Lerp(min, max, Mathf.PingPong(Time.time / speed, 1f));
 
-        mat.SetColor("_EmissionColor", Color.white * intensity);
+        mat.SetColor("_EmissionColor", emissionColor * intensity);
     }
 
-    // ===== public control =====
-    public void Intensify()
-    {
-        alertMode = true;
-    }
+    //public void Intensify() => alertMode = true;
+    //public void CalmDown() => alertMode = false;
 
-    public void CalmDown()
-    {
-        alertMode = false;
-    }
-
-    public void StopFlicker()
-    {
-        enabledFlicker = false;
-        mat.SetColor("_EmissionColor", Color.black);
-    }
+    //public void StopFlicker()
+    //{
+    //    enabledFlicker = false;
+    //    if (mat != null) mat.SetColor("_EmissionColor", Color.black);
+    //}
 }

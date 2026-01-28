@@ -11,6 +11,9 @@ public class MazeGame : MonoBehaviour
     [Header("Result")]
     public GameObject studentCard;
 
+    [Header("Screen Feedback")]
+    public GameObject screenFlicker;
+
     // ===== Maze settings =====
     const int TILE = 16;
     const int COLS = 20;
@@ -140,9 +143,8 @@ public class MazeGame : MonoBehaviour
         if (studentCard != null)
             studentCard.SetActive(true);
 
-        ScreenFlicker flicker = FindObjectOfType<ScreenFlicker>();
-        if (flicker != null)
-            flicker.StopFlicker();
+        if (screenFlicker != null)
+            screenFlicker.SetActive(false);
     }
 
     // ===== Drawing =====

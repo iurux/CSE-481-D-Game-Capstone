@@ -152,6 +152,17 @@ public class FPSControllerSimple : MonoBehaviour
             {
                 Debug.Log("Interacted with: " + hit.collider.name);
 
+                // ① Card Reader
+                CardReaderInteractable reader =
+                    hit.collider.GetComponent<CardReaderInteractable>() ??
+                    hit.collider.GetComponentInParent<CardReaderInteractable>();
+
+                if (reader != null)
+                {
+                    reader.TryInteract(dialogueUI);
+                    return;
+                }
+
                 // ① Door
                 DoorInteractable door =
                     hit.collider.GetComponentInParent<DoorInteractable>();

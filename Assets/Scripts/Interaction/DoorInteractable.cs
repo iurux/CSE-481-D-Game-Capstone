@@ -12,7 +12,7 @@ public class DoorInteractable : MonoBehaviour
     {
         None,
         RequiresItem,
-        RequiresMazeSolved
+        RequiresCardReaderAccess
     }
 
     [Header("Requirement")]
@@ -20,19 +20,12 @@ public class DoorInteractable : MonoBehaviour
 
     // === Item Requirement ===
     public string requiredItemId = "student card";
-    public string failDialogue = "i forget to pickup my student card";
+    public string failDialogue = "I forget to pickup my student ID card";
 
-    // === Maze Requirement ===
-    [TextArea]
-    public string[] mazeLockedDialogue =
-    {
-        "I don't have access.",
-        "I need to grant access to my student ID first.",
-        "I think I can use the computer over there."
-    };
-
-    [Header("Hint Target")]
-    public ScreenFlicker computerScreen;   // 👈 新增
+    // === Card Reader Requirement ===
+    [Header("Card Reader")]
+    public CardReaderInteractable cardReader;  // ✅ 新增：拖拽门旁读卡器进来
+    public string needSwipeDialogue = "I need to use the card reader first.";
 
     bool isOpen = false;
     bool isAnimating = false;
@@ -61,18 +54,18 @@ public class DoorInteractable : MonoBehaviour
             }
         }
 
-        if (requirement == RequirementType.RequiresMazeSolved)
+        if (requirement == RequirementType.RequiresCardReaderAccess)
         {
-            if (!MazeProgress.mazeSolved)
+            if (cardReader == null || !cardReader.accessGranted)
             {
-                dialogueUI?.StartDialogue(mazeLockedDialogue);
-                computerScreen?.Intensify();   // ✅ 这里改了
+                dialogueUI?.StartDialogue(new string[] { needSwipeDialogue });
                 return;
             }
         }
 
         // ===== 条件通过，开门 =====
-        StartCoroutine(AnimateDoor(openRot));
+        Quaternion target = isOpen ? closedRot : openRot;
+        StartCoroutine(AnimateDoor(target));
     }
 
     IEnumerator AnimateDoor(Quaternion target)
@@ -90,7 +83,7 @@ public class DoorInteractable : MonoBehaviour
         }
 
         doorToRotate.localRotation = target;
-        isOpen = true;
+        isOpen = !isOpen;
         isAnimating = false;
     }
 }

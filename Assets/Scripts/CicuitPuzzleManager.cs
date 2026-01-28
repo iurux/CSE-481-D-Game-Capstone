@@ -15,6 +15,9 @@ public class CircuitPuzzleManager : MonoBehaviour
     [Header("Status")]
     public bool IsSolved { get; private set; } = false;
 
+    [Header("Screen Feedback")]
+    public GameObject screenFlicker;
+
     private List<PipeRotator> allPipes = new List<PipeRotator>();
 
     private void Start()
@@ -70,7 +73,10 @@ public class CircuitPuzzleManager : MonoBehaviour
     {
         Debug.Log("Puzzle Solved! Power Restoring...");
         IsSolved = true;
-        
+
+        if (screenFlicker != null)
+            screenFlicker.SetActive(true);
+
         // Disable interaction on all pipes so they can't be rotated anymore
         foreach (var pipe in allPipes)
         {
